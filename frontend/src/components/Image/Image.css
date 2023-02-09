@@ -1,0 +1,16 @@
+.gridImage {
+    background:white;
+    padding: 5px;
+    float: left;
+    height: 8vw;
+    width: 13vw;
+}
+
+.selected {
+    background: yellow;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+} 
