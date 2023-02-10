@@ -1,10 +1,12 @@
 import React from 'react';
+import './Header.css';
+
 
 const Header = (props) => {
 
     return (
         <div>
-            <h1 className="pageName">CAPTCHA This</h1>
+            <h1 id="headerTitle">CAPTCHA This</h1>
         </div>
     );
 }

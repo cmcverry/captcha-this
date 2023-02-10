@@ -1,5 +1,7 @@
-import react, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import './SearchBar.css';
+
 
 const SearchBar = (props) => {
 
@@ -32,13 +34,13 @@ const SearchBar = (props) => {
 
     return (
     <div>
-        <h3>Generate your own CAPTCHA:</h3>
+        <h3 id="instructiveHeader">Generate your own CAPTCHA:</h3>
         <form  onSubmit={handleSubmit}>
             <label>
                 Search Term:
-                <input type="text" id="search_term" name="search_term" placeholder='enter a search term' value={search} onChange={handleChange}></input>
+                <input type="text" id="searchTerm" name="search_term" placeholder='enter a search term' value={search} onChange={handleChange}></input>
             </label>
-            <input type="submit" value="Generate"></input>
+            <input id='generateButton' type="submit" value="Generate"></input>
         </form>
         <p>Try entering in a common search term to generate a random CAPTCHA.</p>
         <p>Disclaimer: CAPTCHA This claims no ownership of any image used. All images are licensed for public domain use.</p>

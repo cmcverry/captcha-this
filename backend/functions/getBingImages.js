@@ -1,5 +1,4 @@
 'use strict';
-
 // Imports
 const https = require('https');
 const { key } = require('../secret');
@@ -8,7 +7,7 @@ const { key } = require('../secret');
 const host = 'api.bing.microsoft.com';
 const path = '/v7.0/images/search';
 
-
+// Makes a call to Bing Image API and retrieves 16 images related to search term
 function getImages(search) {
 
     return new Promise ((resolve) => {

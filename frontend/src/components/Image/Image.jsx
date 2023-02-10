@@ -1,5 +1,6 @@
-import react, { useState } from 'react';
+import { useState } from 'react';
 import './Image.css';
+
 
 const Image = (props) => {
 

@@ -1,9 +1,10 @@
 .gridImage {
     background:white;
     padding: 5px;
+    margin: 2.5px;
     float: left;
     height: 8vw;
-    width: 13vw;
+    width: 11vw;
 }
 
 .selected {

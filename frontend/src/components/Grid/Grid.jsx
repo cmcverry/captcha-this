@@ -36,7 +36,10 @@ const Grid = (props) => {
         props.handleImages(null);
     }
 
-
+    const gridImages = props.imageList.map((image, idx) =>
+        <Image key={idx} image={image.url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={idx}/>
+    );
+    
     return (
         <div id='gridBody'>
             { (success) 
@@ -67,30 +70,9 @@ const Grid = (props) => {
             </div>
             : null
             }
-            <ul className='row'>
-                <Image image={props.imageList[0].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={0}/>
-                <Image image={props.imageList[1].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={1}/>
-                <Image image={props.imageList[2].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={2}/>
-                <Image image={props.imageList[3].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={3}/>
-            </ul>
-            <ul className='row'>
-                <Image image={props.imageList[4].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={4}/>
-                <Image image={props.imageList[5].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={5}/>
-                <Image image={props.imageList[6].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={6}/>
-                <Image image={props.imageList[7].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={7}/>
-            </ul>
-            <ul className='row'>
-                <Image image={props.imageList[8].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={8}/>
-                <Image image={props.imageList[9].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={9}/>
-                <Image image={props.imageList[10].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={10}/>
-                <Image image={props.imageList[11].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={11}/>
-            </ul>
-            <ul className='row'>
-                <Image image={props.imageList[12].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={12}/>
-                <Image image={props.imageList[13].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={13}/>
-                <Image image={props.imageList[14].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={14}/>
-                <Image image={props.imageList[15].url} switch={switchCharAt} selection={selection} setSelection={setSelection} cid={15}/>
-            </ul>
+            <div id='imageGridContainer'>
+                {gridImages}
+            </div>
             <button id='solveButton' onClick={checkSolution}>Solve</button>
         </div>
     );

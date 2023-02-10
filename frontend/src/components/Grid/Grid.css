@@ -16,8 +16,10 @@
     box-shadow: 5px 5px .9em #709c7d, -1px -1px .9em #709c7d;
 }
 
-.row{
+
+#imageGridContainer {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     padding-left: 0;
@@ -64,7 +66,6 @@
 }
 
 #failurePopup {
-    /* position: absolute; */
     color: black;
     text-shadow: 1px 1px #fff;
     background-color: #bfd3c4;

@@ -1,10 +1,9 @@
 'use strict';
-
-const { getImages } = require('./getBingImages');
 const { mixImages } = require('./mixImages');
-const { addToBogus, checkCache } = require('./serverDataFunctions');
-const { bogusTerms, cachedUrls } = require('../serverData');
+const { addToBogus } = require('./serverDataFunctions');
+const { bogusTerms } = require('../serverData');
 const { createImagesArr } = require('./createImagesArr');
+
 
 async function assembleCaptcha(req, res) {
     // If user tries to generate image grid with no search term
@@ -12,7 +11,8 @@ async function assembleCaptcha(req, res) {
       res.send({"captcha": null});
     }
   
-    // Initializes arrays used for containing image urls
+    // Initializes arrays used for containing image urls related to user search term and
+    // two randomly picked bogus search terms
     let validDataArray = [];
     let invalidDataArray = [];
     let invalidDataArray2 = [];
@@ -20,30 +20,38 @@ async function assembleCaptcha(req, res) {
   
     let bogusSearchTerm1 = bogusTerms[bogusTerms.length * Math.random() | 0];
     // Loops while user search term is the same as bogus search term
+    // this is to ensure that at the base level the a user search term is not the same as bogus
     while (bogusSearchTerm1 == searchTerm) {
       bogusSearchTerm1 = bogusTerms[bogusTerms.length * Math.random() | 0];
     }
   
     let bogusSearchTerm2 = bogusTerms[bogusTerms.length * Math.random() | 0];
-      // Loops while user search term is the same as bogus search term
+    // Loops while user search term is the same as bogus search term
+    // this is to ensure that at the base level the a user search term is not the same as bogus
     while (bogusSearchTerm2 == searchTerm || bogusSearchTerm2 == bogusSearchTerm1) {
       bogusSearchTerm2 = bogusTerms[bogusTerms.length * Math.random() | 0];
     }
   
+    // Calls to createImagesArr that return arrays containing urls
     validDataArray = await createImagesArr(searchTerm, 1);
     invalidDataArray = await createImagesArr(bogusSearchTerm1, 0);
     invalidDataArray2 = await createImagesArr(bogusSearchTerm2, 0);
   
-    // Checks that a sufficient number of images were retrieved
+    // Checks that a sufficient number of images (16) were retrieved for each search term
     if ( validDataArray.length < 16 || invalidDataArray.length < 16 || invalidDataArray2.length < 16 ) {
-      res.render('index.ejs', {"search": [searchTerm], "data": ""});
+      res.send({"captcha": null});
     } else {
-    let mixedDataArray = mixImages(validDataArray, invalidDataArray, invalidDataArray2);
-    
-    addToBogus(searchTerm);
-    // Renders index.ejs with object containing user search term and mixedDataArray
-    console.log(mixedDataArray);
-    res.send({"captcha": mixedDataArray});
+
+      // Calls mixImages which returns a single array containing urls randomly chosen from each array argument
+      const mixedDataArray = mixImages(validDataArray, invalidDataArray, invalidDataArray2);
+      
+      // Calls addToBogus to perform basic server caching of user search term
+      addToBogus(searchTerm);
+
+      // console.log(mixedDataArray);
+
+      // returns object containing CAPTCHA image urls to frontend
+      res.send({"captcha": mixedDataArray});
     }
   }
 
